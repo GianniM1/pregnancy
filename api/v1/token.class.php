@@ -51,7 +51,7 @@ class Token {
     //TODO: add token encoding , encrypting , and signing code here...
     //return $token;
     return $token;
-  }
+  } 
 
 
 
