@@ -2,9 +2,10 @@
 
 class User {
 
-  protected $uid = null;
+  protected $uid = null, $loggedIn = false;
 
   public function __construct($id=null) {
+    if($id) $this->loggedIn = true;
     $this->uid = $id;
  }
 

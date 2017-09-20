@@ -41,6 +41,7 @@ class mAPI extends API {
     } else if(array_key_exists('token', $this->input)&&array_key_exists('newRand', $this->input)&&array_key_exists('randKey', $this->input)){
       $this->token = new Token($this->input['randKey'], $this->input['token']);
       $this->user = new User($this->token->uid);
+
     }
 
     $this->data = $this->input['data'];
@@ -136,6 +137,11 @@ class mAPI extends API {
   }
 
   protected function access() {
+
+    if ($this->user->loggedIn===false) {
+      $this->status = 401;
+      return ['error' => 'Access Denied'];
+    }
     if (empty($this->data['set'])) $this->data['set'] = Array();
     if (empty($this->data['where'])) $this->data['where'] = Array();
     if (empty($this->data['orderBy'])) $this->data['orderBy'] = Array();
@@ -164,7 +170,7 @@ class mAPI extends API {
       return $this->buildResponse($res[0]);
     }
     $this->status = 401;
-    return ['error' => 'Login Failed' . $sql];
+    return ['error' => 'Login Failed'];
   }
 
   protected function newUser() {
@@ -182,9 +188,6 @@ class mAPI extends API {
 
     $sql = $this->makeQuery('users', $saltedSet, null, null);
     return $this->buildResponse($this->_sendQuery($sql));
-
-
-
 
   }
 
