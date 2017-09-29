@@ -2,29 +2,30 @@
 
 let dat = {
   data : {
-    where: {
+    set: {
 
-      'usr': 'A4F2',
-      'pass': 'helLo',
+      'f_entry_date': '2017/9/28 20:45:21',
+      'meal_ID': '123',
       //'u_ID': '3'
 
     },
-    table: 'users'
+    table: 'food_entries'
   },
-  newRand: '0',
-  token: '{"uid":1,"exp":1604469500}',
-  randKey: '0'
+  newRand: '5789086',
+  randKey: '0',
+  token: '1nltmpnJZD7zn28C2dKPJKEksB6wd68787q0BfXezXy1q+s+HPOS10rYWAf+znkGhxopIxo3U0tj6lMHzt9hIeCdjHrvrMxgeXBjAhW2Jv1Ikjx8='
+
 };
 
 let res;
 
 //GET
 $.ajax({
-  type: 'GET',
-  url: 'localhost/pregnancy/api/v1/login',
+  type: 'POST',
+  url: 'localhost/pregnancy/api/v1/access',
   contentType: 'application/json',
   dataType: 'json',
-  data: dat,
+  data: JSON.stringify(dat),
   success: (result,status,xhr) => {
     console.log(result);
     console.log(`${JSON.stringify(xhr)} ${status}`);

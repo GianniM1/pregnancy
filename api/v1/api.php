@@ -177,7 +177,7 @@ class mAPI extends API {
     if($this->method != 'POST') {$this->status=404; return 'Wrong Method'; die();}
 
     $sql = $this->makeQuery('users', null , ['usr'=>$this->data['set']['usr']]);
-    if(res = $this->_sendQuery($sql)) throw new Exception("User Already Exists");
+    if($res = $this->_sendQuery($sql)) throw new Exception("User Already Exists");
 
     // SALT & HASH GENERATOR
     $bytes = random_bytes('10');
