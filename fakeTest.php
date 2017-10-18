@@ -35,12 +35,40 @@
 // fputs($fileUsed, $data);
 // fclose($fileUsed);
 
-$zFile = new ZipArchive;
-if ( $zFile->open('CopyFile.zip') === TRUE){
-  echo $zFile->getFromIndex(0);
-  $zFile->close();
-} else {
-  echo 'failed';
-}
+
+
+//flawed unZip method
+// $zFile = new ZipArchive;
+// if ( $zFile->open('CopyFile.zip') === TRUE){
+//   echo $zFile->getFromIndex(0);
+//   $zFile->close();
+// } else {
+//   echo 'failed';
+// }
+
+//Not yet completed fixeing errors
+$zFile = zip_open("DanielaLab.zip");
+echo "";
+if ($zFile)
+  {
+    while ($zip_entry = zip_read($zFile))
+    {
+      $revealMe = fopen("DanielaLab".zip_entry_name($zip_entry), "w");
+      if (zip_entry_open($zFile, $zip_entry, "r"))
+        {
+            $tone = zip_entry_read($zip_entry, zip_entry_file($zip_entry));
+
+            fwrite($revealMe, "$tone");
+
+            zip_entry_close($zip_entry);
+
+            fclose($revealMe);
+        }
+    }
+      zip_close($zFile);
+  }
+
+ //system('unzip DanielaLab.zip');
+
 
 ?>
